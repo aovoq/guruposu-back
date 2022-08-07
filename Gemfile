@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+ruby '3.0.4'
+
+gem 'activerecord'
+gem 'pg'
+gem 'rake'
+gem 'sinatra'
+gem 'sinatra-contrib'
+gem 'sinatra-activerecord'
+gem 'webrick'

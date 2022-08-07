@@ -1,0 +1,20 @@
+version: '3'
+services:
+   db:
+      image: postgres
+      ports:
+         - 3306:3306
+      volumes:
+         - ./db:/bar/lib/postgresql/data
+      environment:
+         POSTGRES_HOST_AUTH_METHOD: 'trust'
+
+   web:
+      build: .
+      command: bundle exec ruby /app/app.rb -o 0.0.0.0
+      volumes:
+         - .:/app/
+      ports:
+         - 4567:4567
+      depends_on:
+         - db
