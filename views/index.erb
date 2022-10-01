@@ -1,0 +1,27 @@
+<h1>Team</h1>
+<h3><%= @team.name %></h3>
+
+
+<form action="/api/v1/<%= @team.unique_id %>/post" method="post">
+   <textarea name="body" id="body" cols="30" rows="10"></textarea>
+   <input type="hidden" name="team_id" value="<%= @team.id %>">
+   <input type="submit" value="投稿">
+</form>
+
+<hr>
+
+<% @posts.each do |post| %>
+
+   <div>
+      <img src="/assets/img/user.png" style="width: 50px;" alt="">
+      <p><strong>
+         <% if !post.member_id.nil? %>
+            <%= post.member.name %>
+         <% end %>
+      </strong></p>
+      <p><%= post.body %></p>
+      <p><%= post.created_at %></p>
+   </div>
+
+   <hr>
+<% end %>

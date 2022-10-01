@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<title>ぐるぽす</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+	<!-- <link rel="stylesheet" href="/assets/css/index.css"> -->
+<body>
+	<main>
+		<div>
+			<% if current_user %>
+				<%= current_user.name %>さん、こんにちは
+				<a href="/signout">ログアウト</a>
+			<% end %>
+		</div>
+		<hr>
+		<%= yield %>
+	</main>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<% if @camp %>
+   <h1><%= @camp.name %></h1>
+   <p><%= @camp.description %></p>
+   <p><%= @camp.location %></p>
+
+   <h2>Create Team</h2>
+   <form action="/api/v1/admin/team/create" method="post">
+      <input type="text" name="name" placeholder="チーム名">
+      <input type="hidden" name="camp_id" value="<%= @camp.id %>">
+      <input type="submit" value="作成">
+   </form>
+
+   <h2>Teams</h2>
+   <% if @camp.teams.empty? %>
+      <p>チームが作成されていません。</p>
+   <% else %>
+      <% @camp.teams.each do |team| %>
+         <div>
+            <h3><a href="/admin/team/<%= team.id %>"><%= team.name %></a></h3>
+            <p>http://localhost:4567/<%= team.unique_id %></p>
+            <form action="/api/v1/admin/team/<%= team.id %>/delete" method="post">
+               <input type="submit" value="削除">
+            </form>
+         </div>
+      <% end %>
+   <% end %>
+
+<% else %>
+   <h1>404</h1>
+<% end %>

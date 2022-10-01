@@ -1,0 +1,24 @@
+<div>
+   <form action="/api/v1/camp/create" method="post">
+      <input type="text" name="name" placeholder="キャンプ名">
+      <input type="text" name="location" placeholder="会場">
+      <input type="text" name="description" placeholder="備考">
+      <input type="date" name="start_date">
+      <input type="date" name="end_date">
+      <input type="submit" value="作成">
+   </form>
+   <hr>
+
+   <% if @camps.empty? %>
+      <p>キャンプが作成されていません。</p>
+   <% else %>
+      <% @camps.each do |camp| %>
+         <div>
+            <h3><a href="/admin/camp/<%= camp.id %>"><%= camp.name %></a></h3>
+            <p><%= camp.location %></p>
+            <p><%= camp.description %></p>
+         </div>
+         <hr>
+      <% end %>
+   <% end %>
+</div>
