@@ -20,15 +20,13 @@ end
 
 class Team < ActiveRecord::Base
   belongs_to :user
+  belongs_to :camp
   has_many :posts
+  has_many :members
 end
 
 class Member < ActiveRecord::Base
     has_many :posts
-end
-
-class TeamMember < ActiveRecord::Base
-    belongs_to :member
     belongs_to :team
 end
 
