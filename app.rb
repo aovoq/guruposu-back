@@ -20,13 +20,10 @@ prefix = "/api/v2"
 prefix_admin = prefix+"/admin"
 
 helpers {
-  def protected!
-    return if authorized?
-    headers["HTTP_AUTHORIZATION"] = "Basic realm=\"Restricted Area\""
-    halt 401, "Not authorized"
-  end
-
   def authorized?
+    if request.env["HTTP_AUTHORIZATION"].nil?
+      halt 401, { message: "Not authorized" }.to_json
+    end
     token = request.env["HTTP_AUTHORIZATION"].split(" ").last
     begin
       decode_token = JWT.decode(token, ENV['JWT_SECRET'], true, { algorithm: 'HS256' })
@@ -297,9 +294,9 @@ end
 post "#{prefix}/member/login" do
   content_type :json
   body_data = JSON.parse(request.body.read)
-  member = Member.find_by(name: body_data["name"], pass: body_data["pass"])
+  member = Member.find_by(pass: body_data["pass"])
   if member
-    token = JWT.encode({ id: member.id, role: 'member' }, ENV["JWT_SECRET"], 'HS256')
+    token = JWT.encode({ member_id: member.id, role: 'member' }, ENV["JWT_SECRET"], 'HS256')
     { token: token }.to_json
   else
     status 404
