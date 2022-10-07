@@ -1,13 +1,13 @@
 default_env: &default
-  adapter: postgresql
-  encoding: unicode
-  host: db
-  username: postgres
-  password:
-  database: guruposu
+   adapter: postgresql
+   encoding: unicode
+   host: db
+   username: postgres
+   password:
+   database: guruposu
 
 development:
-  <<: *default
+   <<: *default
 
 production:
-  <<: *default
+   <<: *default
